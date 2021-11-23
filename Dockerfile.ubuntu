@@ -1,0 +1,22 @@
+FROM ubuntu:20.04
+
+RUN apt-get -y update && apt-get -y install curl
+
+ADD https://github.com/aquasecurity/trivy/releases/download/v0.21.0/trivy_0.21.0_Linux-64bit.deb .
+RUN dpkg -i trivy_0.21.0_Linux-64bit.deb
+
+RUN curl https://api.github.com/repos/aquasecurity/trivy-db/releases
+
+WORKDIR /app
+
+RUN TRIVY_INSECURE=true 
+RUN trivy image alpine # only for testing
+
+COPY ./script.sh .
+COPY ./contrib/* ./contrib/
+
+RUN mkdir results
+
+# CMD ["/bin/bash", "./script.sh"]
+
+ENTRYPOINT [ "/bin/bash", "./script.sh" ]
