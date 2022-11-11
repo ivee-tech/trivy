@@ -5,7 +5,7 @@ It uses the trivy tool installed in a docker container with options for trivy to
 
 https://github.com/aquasecurity/trivy
 
-The current version trivy version is **0.21.0**
+The current version trivy version is **0.34.0**
 
 The docker image simply passes the arguments to the trivy tool running in the container.
 
@@ -93,14 +93,14 @@ OPTIONS:
 Use the following command to build the image locally:
 
 ```bash
-tag='0.21.0'
+tag='0.34.0'
 docker build -t trivy:${tag} -f Dockerfile.ubuntu .
 ```
 
 Tag the image and push to docker hub:
 
 ```bash
-tag='0.21.0'
+tag='0.34.0'
 image='trivy'
 registry='docker.io'
 img="${image}:${tag}"
@@ -114,46 +114,46 @@ docker push ${registry}/${ns}/${img}
 
 Scan image
 ```bash
-docker run -it -v /var/run/docker.sock:/var/run/docker.sock trivy:0.21.0 image alpine:3.14
+docker run -it -v /var/run/docker.sock:/var/run/docker.sock trivy:0.34.0 image alpine:3.14
 ```
 
 Scan local home host directory
 ```bash
-docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v ~/:/app/host-home trivy:0.21.0 config ./host-home
+docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v ~/:/app/host-home trivy:0.34.0 config ./host-home
 ```
 
 Scan image and use json format
 ```bash
-docker run -it -v /var/run/docker.sock:/var/run/docker.sock trivy:0.21.0 image alpine:3.14 --format json
+docker run -it -v /var/run/docker.sock:/var/run/docker.sock trivy:0.34.0 image alpine:3.14 --format json
 ```
 
 Scan image, use json format and output file; results stored in ~/data/trivy/results host directory 
 ```bash
-docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v ~/data/trivy/results:/app/results trivy:0.21.0 image alpine:3.14 --format json --output ./results/results.json
+docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v ~/data/trivy/results:/app/results trivy:0.34.0 image alpine:3.14 --format json --output ./results/results.json
 ```
 
 Scan image, but skip vulnerabilities DB update (possibly required in air-tight environments)
 ```bash
-docker run -it -v /var/run/docker.sock:/var/run/docker.sock trivy:0.21.0 image alpine:3.14 --skib-db-update
+docker run -it -v /var/run/docker.sock:/var/run/docker.sock trivy:0.34.0 image alpine:3.14 --skib-db-update
 ```
 
 
 Scan image ruby:2.4.0 for severity HIGH,CRITICAL and output as JUnit template format in a file; 
 results stored in ~/data/trivy/results host directory 
 ```bash
-docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v ~/data/trivy/results:/app/results trivy:0.21.0 image ruby:2.4.0 --format template --template @contrib/junit.tpl --output ./results/results.xml --severity HIGH,CRITICAL
+docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v ~/data/trivy/results:/app/results trivy:0.34.0 image ruby:2.4.0 --format template --template @contrib/junit.tpl --output ./results/results.xml --severity HIGH,CRITICAL
 ```
 
 
 Same as above, but output as HTML template format in a file; 
 results stored in ~/data/trivy/results host directory 
 ```bash
-docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v ~/data/trivy/results:/app/results trivy:0.21.0 image ruby:2.4.0 --format template --template @contrib/html.tpl --output ./results/results.html --severity HIGH,CRITICAL
+docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v ~/data/trivy/results:/app/results trivy:0.34.0 image ruby:2.4.0 --format template --template @contrib/html.tpl --output ./results/results.html --severity HIGH,CRITICAL
 ```
 
 
 Scan image ubuntu:20.04 for severity LOW,MEDIUM,HIGH,CRITICAL and use exit code 1; output as JUnit template format in a file; 
 results stored in ~/data/trivy/results host directory 
 ```bash
-docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v ~/data/trivy/results:/app/results trivy:0.21.0 image ubuntu:20.04 --format template --template @contrib/junit.tpl --output ./results/results.xml --severity LOW,MEDIUM,HIGH,CRITICAL --exit-code 1
+docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v ~/data/trivy/results:/app/results trivy:0.34.0 image ubuntu:20.04 --format template --template @contrib/junit.tpl --output ./results/results.xml --severity LOW,MEDIUM,HIGH,CRITICAL --exit-code 1
 ```
