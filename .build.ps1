@@ -7,11 +7,21 @@ docker build -t trivy:${tag} --build-arg VERSION=${tag} -f Dockerfile.ubuntu .
 
 # Tag the image and push to docker hub:
 
+# docker hub
+$registry='docker.io'
+$ns='daradu' # namespace
+# ACR
+$registry='ktbacr.azurecr.io'
+$ns = 'tools'
+
 $tag='0.53.0'
 $image='trivy'
-$registry='docker.io'
 $img="${image}:${tag}"
-$ns='daradu' # namespace
 docker tag ${img} ${registry}/${ns}/${img}
-# requires docker login
+# for docker hub use docker login
+docker login
+# for ACR use az acr login
+az acr login --name $registry
 docker push ${registry}/${ns}/${img}
+
+
