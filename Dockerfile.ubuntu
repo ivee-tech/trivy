@@ -1,7 +1,7 @@
-FROM ubuntu:20.04
+FROM ubuntu:24.04
 
 ARG VERSION
-ENV VERSION ${VERSION}
+ENV VERSION=${VERSION}
 RUN apt-get -y update && apt-get -y install curl
 
 ADD https://github.com/aquasecurity/trivy/releases/download/v${VERSION}/trivy_${VERSION}_Linux-64bit.deb .

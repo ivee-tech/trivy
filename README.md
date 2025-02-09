@@ -157,3 +157,27 @@ results stored in ~/data/trivy/results host directory
 ```bash
 docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v ~/data/trivy/results:/app/results trivy:0.34.0 image ubuntu:20.04 --format template --template @contrib/junit.tpl --output ./results/results.xml --severity LOW,MEDIUM,HIGH,CRITICAL --exit-code 1
 ```
+
+Scan other images
+``` PowerShell
+$image = 'testcgrapp'
+$image = 'ktbacr.azurecr.io/zipzapp/zz-app'
+$tag = '0.0.1'
+$img = "$($image):$($tag)"
+$s = $image.Replace('/','_')
+docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock -v C:/Users/daradu/data/trivy/results:/app/results trivy:0.53.0 image $img --format template --template @contrib/junit.tpl --output ./results/results_$s.xml --severity HIGH,CRITICAL --skip-db-update
+```
+
+Scan images using private DB repo
+``` PowerShell
+$image = 'takserver'
+$tag = '5.3-RELEASE-24'
+$img = "$($image):$($tag)"
+$dbRepo = 'ktbacr.azurecr.io/trivy/trivy-db:2'
+$s = $image.Replace('/','_')
+docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock -v C:/Data/trivy/results:/app/results `
+  -e AZURE_CLIENT_ID=$env:FDPO_TRIVY_DB_SP_CLIENT_ID -e AZURE_CLIENT_SECRET=$env:FDPO_TRIVY_DB_SP_CLIENT_SECRET -e AZURE_TENANT_ID=$env:FDPO_TENANT_ID `
+  -e TRIVY_USERNAME=$env:FDPO_TRIVY_DB_SP_CLIENT_ID -e TRIVY_PASSWORD=$env:FDPO_TRIVY_DB_SP_CLIENT_SECRET `
+   trivy:0.53.0 image $img --format template --template @contrib/junit.tpl --output ./results/results_$s.xml --severity HIGH,CRITICAL --db-repository $dbRepo
+```
+
