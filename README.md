@@ -181,3 +181,17 @@ docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock -v C:/Data/triv
    trivy:0.53.0 image $img --format template --template @contrib/junit.tpl --output ./results/results_$s.xml --severity HIGH,CRITICAL --db-repository $dbRepo
 ```
 
+## FAQ
+
+**Q: What is the purpose of this project?**  
+A: This project provides a Docker container wrapper for Aqua Security's Trivy scanner, allowing you to easily run security scans on container images and configuration files without having to install Trivy directly on your system.
+
+**Q: How is this different from the official Trivy tool?**  
+A: This is a containerized version of Trivy that simplifies usage by packaging the tool in a Docker image. It passes all arguments directly to the underlying Trivy tool, making it ideal for CI/CD pipelines and environments where you prefer containerized tools.
+
+**Q: What types of scans can I perform with this container?**  
+A: You can scan Docker images for vulnerabilities, scan configuration files (Docker, Terraform), and output results in various formats including JSON, XML (JUnit), HTML, and table formats.
+
+**Q: Do I need Docker to use this tool?**  
+A: Yes, this project requires Docker to be installed and running on your system, as it runs Trivy within a Docker container.
+
