@@ -1,7 +1,7 @@
 # Use the following command to build the image locally:
 # versions: 0.21.0, 0.34.0, 0.41.0, 0.53.0, 0.59.0
 
-$tag='0.59.0'
+$tag='0.64.1' # '0.59.0'
 docker pull aquasec/trivy:${tag}
 docker build -t trivy:${tag} --build-arg VERSION=${tag} -f Dockerfile.ubuntu .
 
