@@ -72,3 +72,6 @@ ktbacr.azurecr.io/trivy/trivy-java-db:1
 oras pull /trivy/trivy-config-checks-db: -o <output_path>
 trivy config --config-checks-db <output_path> <target_directory>
 
+# TODO: add image scanning example
+
+
