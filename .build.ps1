@@ -73,5 +73,9 @@ oras pull /trivy/trivy-config-checks-db: -o <output_path>
 trivy config --config-checks-db <output_path> <target_directory>
 
 # TODO: add image scanning example
+trivy image --vuln-type os,library --ignore-unfixed --severity HIGH,CRITICAL --ignore-policy .trivyignore myapp:latest
 
+trivy image --ignore-unfixed node:18
+
+trivy image --severity HIGH,CRITICAL ubuntu:20.04
 
