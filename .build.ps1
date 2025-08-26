@@ -68,5 +68,7 @@ oras pull $image -o $pullPath
 ktbacr.azurecr.io/trivy/trivy-db:2
 ktbacr.azurecr.io/trivy/trivy-java-db:1
 
-# TODO: add config checks DB
+# config checks DB
+oras pull /trivy/trivy-config-checks-db: -o <output_path>
+trivy config --config-checks-db <output_path> <target_directory>
 
